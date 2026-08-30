@@ -81,6 +81,14 @@ The required Vercel page exists for Build Week testing, onboarding, evidence, an
 
 Unoforce can eventually become the agent's real-estate “second brain”: a WhatsApp partner that remembers permitted customer context and answers questions such as “What did Rahul need?”, “Who is waiting for the ABC Builders launch?”, or “Which buyers may now fit this property?” This direction strengthens the same WhatsApp-native relationship memory; it does not authorize extra channels, a mobile app, a web app for agents, or broad features during Build Week.
 
+If an agent already uses a CRM, Unoforce may eventually read and update that CRM behind the scenes while WhatsApp remains the only interface the agent uses. If the agent has no CRM, Unoforce keeps the durable customer memory in Convex. “Works with every CRM” is not a Build Week promise.
+
+### Build Week Seed Data
+
+Use a one-time, deliberately selected Close CRM export to seed a small set of anonymized demonstration leads in Convex. Remove or replace real names, phone numbers, email addresses, addresses, and private conversation content before the data enters the repository or test environment.
+
+Do not connect the live Close organization during the first build. Close API keys and OAuth currently inherit broad access from the authorizing Close user. A live Close integration is allowed only after the WhatsApp core flow works and only if it is the largest observed blocker.
+
 ## The Smallest Complete Flow
 
 1. A supported new 1:1 client message is received after the agent is connected.
@@ -241,7 +249,7 @@ Put every mid-build feature request here. Nothing leaves this list during Build 
 
 - Six-month WhatsApp history sync.
 - Phone-contact import.
-- CSV import.
+- General CSV import. The one-time developer-prepared anonymized Close seed is allowed; agent-facing import is not.
 - HubSpot and Close import or sync.
 - Group conversations.
 - Call capture or transcription.
