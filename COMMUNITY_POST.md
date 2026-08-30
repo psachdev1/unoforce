@@ -2,7 +2,7 @@
 
 ## Idea
 
-Unoforce is a WhatsApp assistant that remembers an agent's property leads and tells them who to contact next, why, and what to do.
+Unoforce is a personal sales coach inside WhatsApp that tells a real-estate agent who needs attention today, why, and what to do next.
 
 ## Who is it for
 
@@ -10,4 +10,4 @@ Growing solo real-estate agents with a dedicated WhatsApp Business number who re
 
 ## Job to be done
 
-Help the agent move every lead through the right outreach and follow-up sequence without searching old chats, entering notes, or maintaining a separate CRM.
+Help the agent stay on top of every lead, prepare the next message or call, and follow up at the right time without searching through old systems.

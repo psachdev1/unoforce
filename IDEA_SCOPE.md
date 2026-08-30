@@ -49,13 +49,13 @@ Keep the previous verified deployment available as the rollback point. If the li
 
 ### One-Paragraph Test
 
-> “A growing solo real-estate agent receives prospect inquiries in WhatsApp from paid ads or property marketplaces and accumulates more active chats than they can reliably manage from memory. Whenever they need to follow up, they try to reconstruct what each prospect needs and what should happen next, but important context and promised actions can remain buried in WhatsApp. Today they search old chats, rely on memory, and follow up ad hoc. My product: the agent continues normal 1:1 WhatsApp conversations and sends occasional natural instructions to Unoforce → gets a ranked ‘Today's Calls’ message showing whom to contact, why, and what to do. It worked if the agent acts on the right follow-ups without creating contacts or maintaining notes in a separate CRM.”
+> “A growing solo real-estate agent receives prospect inquiries in WhatsApp from paid ads or property marketplaces and accumulates more active chats than they can reliably manage from memory. Whenever they need to follow up, they try to reconstruct what each prospect needs and what should happen next, but important context and promised actions can remain buried across WhatsApp and the tools they already use. Today they search old conversations and systems, rely on memory, and follow up ad hoc. My product: the agent asks their personal sales coach inside WhatsApp what needs attention → gets a ranked list showing whom to contact, why, and what to do next. It worked if the agent acts on the right follow-ups without opening or maintaining another system.”
 
 This is the primary-audience hypothesis, not a verified description of a named agent. Ila P., SriRam, Ram, and Vaibhav are candidate contacts. Prioritize agents who receive inbound WhatsApp inquiries from paid ads or property marketplaces, but do not exclude agents who already manage a meaningful volume of long-running client follow-ups in WhatsApp. Replace the generic opening with the first tested agent's private label and age after confirming how they acquire and manage leads.
 
 | Decision | Locked scope |
 |---|---|
-| Product | Unoforce turns an agent's normal 1:1 WhatsApp conversations into a durable client record and a ranked daily action list, without manual CRM updates. |
+| Product | Unoforce is a personal sales coach inside WhatsApp that uses available customer context to tell an agent who needs attention today, why, and what to do next. |
 | User | Primary entry segment: a growing solo residential real-estate agent who receives inbound prospect inquiries in WhatsApp from paid ads or property marketplaces. Wider eligible user: a solo agent who manages a meaningful volume of long-running client follow-ups in WhatsApp, even if those clients came through referrals or their network. The account belongs to the agent, not a brokerage. |
 | Pain | Important client context and promised follow-ups remain scattered across long-running conversations, so the agent loses the right next action. |
 | Core action | The agent continues normal client conversations. Unoforce captures supported messages, accepts natural corrections or instructions in a private bot chat, and returns “Today's Calls” in WhatsApp. |
@@ -76,6 +76,39 @@ The private Unoforce bot inside WhatsApp has two jobs in v1:
 2. Send the ranked “Today's Calls” list with the reason and suggested action for each client.
 
 The required Vercel page exists for Build Week testing, onboarding, evidence, and failure inspection. It is not the agent's daily workspace and must not grow into a CRM dashboard.
+
+### Landing Page Contract
+
+The landing page exists to explain the product and open the WhatsApp demo. It is not the product workspace.
+
+**Headline:** Your personal sales coach, inside WhatsApp.
+
+**Supporting line:** Know who needs attention today, remember why, and prepare the next message or call—without opening another system.
+
+**How it works:**
+
+1. Keep working with clients in WhatsApp.
+2. Ask Unoforce about a lead or add missing context naturally.
+3. Get a daily action list plus help preparing the next message or call.
+
+**Primary action:** Try the WhatsApp demo.
+
+**Honesty note:** The Build Week version uses a Meta test number and anonymized sample customer context.
+
+Do not add pricing, testimonials, comparisons, a feature catalogue, or a CRM dashboard before the core demo works.
+
+### Two-Minute MVP Demo
+
+1. Open `unoforce.com` and tap **Try the WhatsApp demo**.
+2. Ask Unoforce: “What should I do today?”
+3. Receive three ranked leads with a reason and suggested next action.
+4. Ask: “Why should I contact Priya?”
+5. Receive the remembered context plus a draft message or call outline.
+6. Say: “Wait for the ABC Builders launch before contacting her.”
+7. Receive confirmation that the instruction was remembered.
+8. Ask for today's list again and see Priya's action changed.
+
+The demo proves persistent customer memory, useful prioritization, preparation help, and natural correction—all inside WhatsApp.
 
 ### Long-Term Product Direction — Not Build Week Scope
 
