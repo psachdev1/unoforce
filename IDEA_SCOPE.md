@@ -5,7 +5,7 @@
 **Primary track:** AI Agent as a Service  
 **Time limit:** About four hours per day  
 **Stack:** Codex or Claude Code, GitHub, Convex, Vercel  
-**Status:** Idea locked; validation not yet passed; no code started
+**Status:** Idea locked; web-chat MVP authorized; validation not yet passed; no code started
 
 This file is the control plane for the build. If a new feature is not required by an acceptance test below, put it in the parking lot instead of building it.
 
@@ -24,7 +24,7 @@ Keep the previous verified deployment available as the rollback point. If the li
 
 ## Before Any Build: Test the Riskiest Assumption
 
-**Assumption:** A real-estate agent's normal 1:1 WhatsApp messages, plus occasional natural instructions to a private bot, contain enough context to produce a daily action list the agent trusts. The agent should not need CRM fields, forms, or a recap template.
+**Assumption:** The customer context already available to a real-estate agent, plus natural notes they give a sales assistant, contains enough information to produce a daily action list the agent trusts. The agent should not need CRM fields, forms, or a recap template.
 
 **30-minute no-code test:**
 
@@ -49,57 +49,58 @@ Keep the previous verified deployment available as the rollback point. If the li
 
 ### One-Paragraph Test
 
-> “A growing solo real-estate agent receives prospect inquiries in WhatsApp from paid ads or property marketplaces and accumulates more active chats than they can reliably manage from memory. Whenever they need to follow up, they try to reconstruct what each prospect needs and what should happen next, but important context and promised actions can remain buried across WhatsApp and the tools they already use. Today they search old conversations and systems, rely on memory, and follow up ad hoc. My product: the agent asks their personal sales coach inside WhatsApp what needs attention → gets a ranked list showing whom to contact, why, and what to do next. It worked if the agent acts on the right follow-ups without opening or maintaining another system.”
+> “A growing solo real-estate agent receives prospect inquiries in WhatsApp from paid ads or property marketplaces and accumulates more active chats than they can reliably manage from memory. Whenever they need to follow up, they try to reconstruct what each prospect needs and what should happen next, but important context and promised actions remain buried across WhatsApp and the tools they already use. Today they search old conversations and systems, rely on memory, and follow up ad hoc. My product: the agent asks a chat-based personal sales coach what needs attention → gets a ranked list showing whom to contact, why, and what to do next. It worked if the agent acts on the right follow-ups without opening or maintaining a CRM. The Build Week proof is web chat; WhatsApp is the intended delivery channel after the job is proven.”
 
 This is the primary-audience hypothesis, not a verified description of a named agent. Ila P., SriRam, Ram, and Vaibhav are candidate contacts. Prioritize agents who receive inbound WhatsApp inquiries from paid ads or property marketplaces, but do not exclude agents who already manage a meaningful volume of long-running client follow-ups in WhatsApp. Replace the generic opening with the first tested agent's private label and age after confirming how they acquire and manage leads.
 
 | Decision | Locked scope |
 |---|---|
-| Product | Unoforce is a personal sales coach inside WhatsApp that uses available customer context to tell an agent who needs attention today, why, and what to do next. |
+| Product | Unoforce is a chat-based personal sales coach that uses available customer context to tell an agent who needs attention today, why, and what to do next. WhatsApp is the intended daily channel after the core job is proven. |
 | User | Primary entry segment: a growing solo residential real-estate agent who receives inbound prospect inquiries in WhatsApp from paid ads or property marketplaces. Wider eligible user: a solo agent who manages a meaningful volume of long-running client follow-ups in WhatsApp, even if those clients came through referrals or their network. The account belongs to the agent, not a brokerage. |
 | Pain | Important client context and promised follow-ups remain scattered across long-running conversations, so the agent loses the right next action. |
-| Core action | The agent continues normal client conversations. Unoforce captures supported messages, accepts natural corrections or instructions in a private bot chat, and returns “Today's Calls” in WhatsApp. |
+| Core action | The agent asks what to do today, explores the reason or suggested approach for a lead, and drops a natural update. Unoforce returns an updated priority list without asking the agent to maintain CRM fields. |
 | Account boundary | One account belongs to one agent. Nothing is shared with a brokerage, manager, team, or other agent. |
 | Explicit instruction rule | An agent's explicit instruction overrides an inferred fact or action. Uncertain inferences must be confirmed rather than silently saved as facts. |
 | Client matching | Match by phone number or an unambiguous existing name. Ask one clarification question when more than one client matches. |
 | Data promise | Keep captured client records available while the customer's paid account is active. Production use also requires export, deletion, consent, and secure account identity. |
 
-### Product Surface: WhatsApp Only for the Agent
+### Product Surface: Chat First
 
-The agent's working surface is the dedicated WhatsApp Business number they already use. They do not install a mobile app, open a web dashboard, or maintain a second workspace.
+The permanent interaction model is chat: ask a question, get the next action, or add a customer update in normal words. The agent never has to maintain a CRM screen.
 
-**Frozen product constraint:** Every regular agent action and product response must happen inside WhatsApp through an interface officially supported by WhatsApp. Unoforce will not build an Android app, iOS app, agent-facing web app, CRM screen, or second messaging workspace. Changing this constraint requires choosing a different product, not adding a feature.
+**Build Week delivery decision:** The first working version is a mobile-friendly web chat at `unoforce.com`. This removes Meta, Twilio, and business-verification setup from today's critical path. WhatsApp becomes the next delivery channel only after the three core jobs work with real agents. This is a channel change, not permission to build a CRM dashboard.
 
-The private Unoforce bot inside WhatsApp has two jobs in v1:
+The Unoforce chat has three jobs in v1:
 
-1. Accept natural instructions and corrections about a client.
-2. Send the ranked “Today's Calls” list with the reason and suggested action for each client.
+1. Show whom to outreach or nurture today, in priority order.
+2. Explain what to do for a lead and help draft a message, call outline, or objection response.
+3. Accept natural notes and corrections about work done or what should happen next.
 
-The required Vercel page exists for Build Week testing, onboarding, evidence, and failure inspection. It is not the agent's daily workspace and must not grow into a CRM dashboard.
+The Vercel page is the working Build Week product. It is a conversation, not a pipeline, contact table, or CRM form.
 
 ### Landing Page Contract
 
-The landing page exists to explain the product and open the WhatsApp demo. It is not the product workspace.
+The landing page explains the product and opens the working chat immediately.
 
-**Headline:** Your personal sales coach, inside WhatsApp.
+**Headline:** Know which lead needs you next.
 
-**Supporting line:** Know who needs attention today, remember why, and prepare the next message or call—without opening another system.
+**Supporting line:** Unoforce remembers the context, suggests the next move, and records your updates through one simple conversation.
 
 **How it works:**
 
-1. Keep working with clients in WhatsApp.
-2. Ask Unoforce about a lead or add missing context naturally.
-3. Get a daily action list plus help preparing the next message or call.
+1. Ask who needs attention today.
+2. Get the reason, the next move, and help preparing the message or call.
+3. Tell Unoforce what happened in normal words; the customer memory updates in the background.
 
-**Primary action:** Try the WhatsApp demo.
+**Primary action:** Open my daily brief.
 
-**Honesty note:** The Build Week version uses a Meta test number and anonymized sample customer context.
+**Honesty note:** The Build Week version is a web chat using anonymized sample customer context. WhatsApp and live CRM connections are not yet active.
 
 Do not add pricing, testimonials, comparisons, a feature catalogue, or a CRM dashboard before the core demo works.
 
 ### Two-Minute MVP Demo
 
-1. Open `unoforce.com` and tap **Try the WhatsApp demo**.
+1. Open `unoforce.com` and tap **Open my daily brief**.
 2. Ask Unoforce: “What should I do today?”
 3. Receive three ranked leads with a reason and suggested next action.
 4. Ask: “Why should I contact Priya?”
@@ -108,29 +109,29 @@ Do not add pricing, testimonials, comparisons, a feature catalogue, or a CRM das
 7. Receive confirmation that the instruction was remembered.
 8. Ask for today's list again and see Priya's action changed.
 
-The demo proves persistent customer memory, useful prioritization, preparation help, and natural correction—all inside WhatsApp.
+The demo proves persistent customer memory, useful prioritization, preparation help, and natural correction through chat. It does not claim a live WhatsApp or CRM connection.
 
 ### Long-Term Product Direction — Not Build Week Scope
 
-Unoforce can eventually become the agent's real-estate “second brain”: a WhatsApp partner that remembers permitted customer context and answers questions such as “What did Rahul need?”, “Who is waiting for the ABC Builders launch?”, or “Which buyers may now fit this property?” This direction strengthens the same WhatsApp-native relationship memory; it does not authorize extra channels, a mobile app, a web app for agents, or broad features during Build Week.
+Unoforce can eventually become the agent's real-estate “second brain”: a conversational partner that remembers permitted customer context and answers questions such as “What did Rahul need?”, “Who is waiting for the ABC Builders launch?”, or “Which buyers may now fit this property?” WhatsApp is the intended daily channel. The Build Week web chat proves the interaction before platform work begins.
 
-If an agent already uses a CRM, Unoforce may eventually read and update that CRM behind the scenes while WhatsApp remains the only interface the agent uses. If the agent has no CRM, Unoforce keeps the durable customer memory in Convex. “Works with every CRM” is not a Build Week promise.
+If an agent already uses a CRM, Unoforce may eventually read and update it behind the scenes while chat remains the only interface the agent uses. If the agent has no CRM, Unoforce keeps the durable customer memory in Convex. “Works with every CRM” is not a Build Week promise.
 
 ### Build Week Seed Data
 
 Use a one-time, deliberately selected Close CRM export to seed a small set of anonymized demonstration leads in Convex. Remove or replace real names, phone numbers, email addresses, addresses, and private conversation content before the data enters the repository or test environment.
 
-Do not connect the live Close organization during the first build. Close API keys and OAuth currently inherit broad access from the authorizing Close user. A live Close integration is allowed only after the WhatsApp core flow works and only if it is the largest observed blocker.
+Do not connect the live Close organization during the first build. Close API keys and OAuth currently inherit broad access from the authorizing Close user. A live Close integration is allowed only after the web-chat core flow works and only if it is the largest observed blocker.
 
 ## The Smallest Complete Flow
 
-1. A supported new 1:1 client message is received after the agent is connected.
-2. Unoforce associates it with that agent and client.
-3. It stores extracted facts separately from explicit agent instructions.
-4. The agent can send a natural instruction such as “For Rahul, follow up in two months.”
-5. Unoforce applies the instruction to the correct client, asking one question if the name is ambiguous.
-6. Unoforce produces one ranked “Today's Calls” message containing the client name, why the client appears today, and the suggested action.
-7. The agent can correct the result through another natural message.
+1. The agent opens the chat and asks, “What should I do today?”
+2. Unoforce returns a ranked brief with the lead name, reason, and suggested action.
+3. The agent asks why a lead is included or requests help with the next message or call.
+4. Unoforce answers from the stored customer context and clearly exposes missing context.
+5. The agent sends a natural update such as “For Priya, wait for the ABC Builders launch.”
+6. Unoforce stores the explicit instruction and confirms what changed.
+7. The agent asks for today's brief again and sees the changed priority or action.
 
 The Sunday version may use hardcoded test data and one preselected agent. It must still complete this whole loop.
 
@@ -141,14 +142,15 @@ The Sunday version may use hardcoded test data and one preselected agent. It mus
 - No group chats.
 - No WhatsApp, cellular, or video call capture.
 - No physical-meeting capture unless the agent later mentions the context in WhatsApp.
-- No email, SMS, Slack, dialer, mobile app, or browser dashboard for daily use.
+- No email, SMS, Slack, dialer, native mobile app, or CRM dashboard for daily use.
+- No live WhatsApp, Twilio, HubSpot, Close, or other CRM connection in the first build.
 - No property listings, MLS, transaction management, legal records, accounting, or document storage.
 - No bulk messages, campaigns, or automatic nurturing sequences.
 - No pipeline interface beyond facts, waiting conditions, next actions, and dates.
 - No billing, brokerage reporting, multiple segments, or US-market customization.
 - No claim that Unoforce can access unsupported WhatsApp data.
 
-## Known Boundaries to Verify
+## Known Boundaries to Verify Later
 
 Treat these as build risks until tested on the actual account:
 
@@ -158,7 +160,7 @@ Treat these as build risks until tested on the actual account:
 - The exact onboarding, consent, template, and business-verification requirements.
 - What message history is available. v1 does not depend on historical sync.
 
-If Meta onboarding blocks the week, preserve the product test with a clearly labelled WhatsApp-like test console on Vercel. Do not present that fallback as a live WhatsApp integration.
+None of these Meta questions may block the web-chat MVP. Do not present the web chat as a live WhatsApp integration.
 
 ## First Delivery Milestone
 
@@ -195,7 +197,7 @@ The first delivery is one ugly, hardcoded, complete flow deployed to Vercel and 
 
 **Acceptance test:** The no-code test passes, and the live product completes the seven-step core flow without spoken guidance. The Vercel deployment loads and the public repository contains the deployed version.
 
-**If behind, cut to this:** Use the WhatsApp-like Vercel test console, one agent, two clients, and hardcoded extraction. Do not spend Sunday waiting for Meta approval.
+**If behind, cut to this:** Use the Vercel web chat, one agent, two clients, and deterministic replies. Do not spend time on Meta, Twilio, CRM APIs, or open-ended AI.
 
 ### 3. Monday, 31 August — Watch Three Agents Use It
 
@@ -251,7 +253,7 @@ The first delivery is one ugly, hardcoded, complete flow deployed to Vercel and 
 3. Verify the public GitHub repository opens and matches the deployed product.
 4. Export the final numbers and check them against source records.
 5. Capture screenshots of the live flow and every number claimed.
-6. Write a short statement separating actual WhatsApp integration from any simulated fallback.
+6. Write a short statement that the working product is web chat and WhatsApp/CRM connections are later integrations.
 7. Submit the live product, public repository, numbers, and required description before 11:00 AM IST.
 8. Preserve the remaining time for demo rehearsal and failure recovery.
 
@@ -304,9 +306,9 @@ Put every mid-build feature request here. Nothing leaves this list during Build 
 
 - Android app.
 - iOS app.
-- Agent-facing web app or CRM dashboard.
+- Agent-facing CRM dashboard, pipeline, or contact-maintenance screen.
 - Custom dialer or device call-log access.
-- Any daily workflow that makes the agent leave WhatsApp.
+- Any permanent workflow that makes the agent maintain a CRM screen.
 
 ## Scope-Change Rule
 
@@ -320,4 +322,4 @@ All three answers must be yes. Otherwise, add it to the parking lot.
 
 ## Next Single Action
 
-Message one WhatsApp-first solo real-estate agent now and book a 30-minute session today to review five anonymized recent lead threads for the riskiest-assumption test.
+Build and deploy the fixed-data web-chat golden path, then send its live link to one WhatsApp-first solo real-estate agent today.
