@@ -43,4 +43,21 @@ describe("sales coach", () => {
     expect(result.leads).toBe(demoLeads);
     expect(result.reply.kind).toBe("help");
   });
+
+  it("completes the demo from brief through changed brief", () => {
+    const firstBrief = replyToCoach("What should I do today?", demoLeads);
+    expect(firstBrief.actions?.some((action) => action.name === "Priya Mehta")).toBe(true);
+
+    const result = applyLeadUpdate(
+      "Wait for the ABC Builders launch before contacting Priya",
+      demoLeads,
+    );
+    expect(result.reply.kind).toBe("confirmation");
+
+    const changedBrief = replyToCoach("What should I do today?", result.leads);
+    expect(changedBrief.actions?.some((action) => action.name === "Priya Mehta")).toBe(false);
+    expect(result.leads.find((lead) => lead.name === "Priya Mehta")?.nextAction).toContain(
+      "ABC Builders launch",
+    );
+  });
 });

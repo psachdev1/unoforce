@@ -22,6 +22,7 @@ const prompts = [
   "What should I do today?",
   "Why should I contact Priya?",
   "Draft a message for Priya",
+  "Wait for the ABC Builders launch before contacting Priya",
 ];
 
 export function SalesCoach() {
