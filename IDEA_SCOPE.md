@@ -5,7 +5,7 @@
 **Primary track:** AI Agent as a Service  
 **Time limit:** About four hours per day  
 **Stack:** Codex or Claude Code, GitHub, Convex, Vercel  
-**Status:** Idea locked; web-chat MVP authorized; validation not yet passed; no code started
+**Status:** Web-chat golden path working locally; validation not yet passed; production deployment pending
 
 This file is the control plane for the build. If a new feature is not required by an acceptance test below, put it in the parking lot instead of building it.
 
@@ -322,4 +322,4 @@ All three answers must be yes. Otherwise, add it to the parking lot.
 
 ## Next Single Action
 
-Build and deploy the fixed-data web-chat golden path, then send its live link to one WhatsApp-first solo real-estate agent today.
+Deploy the tested web-chat golden path, then send its live link to one WhatsApp-first solo real-estate agent today.
