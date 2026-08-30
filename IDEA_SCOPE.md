@@ -5,7 +5,7 @@
 **Primary track:** AI Agent as a Service  
 **Time limit:** About four hours per day  
 **Stack:** Codex or Claude Code, GitHub, Convex, Vercel  
-**Status:** Web-chat golden path working locally; validation not yet passed; production deployment pending
+**Status:** Web-chat golden path live at `https://unoforce.vercel.app`; validation not yet passed; cloud Convex pending
 
 This file is the control plane for the build. If a new feature is not required by an acceptance test below, put it in the parking lot instead of building it.
 
