@@ -13,19 +13,19 @@ export default function Home() {
       <section className="intro" id="top">
         <div className="intro-copy">
           <p className="eyebrow">Your personal sales coach</p>
-          <h1>Less admin. More selling.</h1>
+          <h1>Start every sales day with an edge.</h1>
           <p className="dek">
-            Plan your day. Prepare every conversation. Log outcomes in plain English. Unoforce
-            handles the admin, so you can sell.
+            Unoforce finds the signal, sets your priorities, and prepares every conversation.
+            You sell. It keeps the record.
           </p>
           <a className="primary-link" href="#coach">
-            Plan my sales day <span aria-hidden="true">↓</span>
+            See where to focus today <span aria-hidden="true">↓</span>
           </a>
         </div>
         <aside className="promise" aria-label="What Unoforce helps with">
           <p className="promise-label">Three jobs, one conversation</p>
           <ol>
-            <li><span>01</span> Plan and prioritize my sales day.</li>
+            <li><span>01</span> Surface the insights that can move today.</li>
             <li><span>02</span> Understand any relationship or opportunity.</li>
             <li><span>03</span> Record what happened in plain English.</li>
           </ol>

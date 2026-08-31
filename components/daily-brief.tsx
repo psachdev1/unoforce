@@ -51,7 +51,7 @@ export function DailyBrief({ actions, onStart }: { actions: LeadAction[]; onStar
                     </div>
                     <div className="activity-actions">
                       <span className="due">{action.due}</span>
-                      <button type="button" onClick={() => onStart(action.name)}>Work on this</button>
+                      <button type="button" onClick={() => onStart(action.name)}>Let’s do it</button>
                     </div>
                   </li>
                 ))}

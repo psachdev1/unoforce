@@ -86,9 +86,9 @@ The Vercel page is the working Build Week product. It is a conversation, not a p
 
 The landing page explains the product and opens the working chat immediately.
 
-**Headline:** Less admin. More selling.
+**Headline:** Start every sales day with an edge.
 
-**Supporting line:** Plan your day. Prepare every conversation. Log outcomes in plain English. Unoforce handles the admin, so you can sell.
+**Supporting line:** Unoforce finds the signal, sets your priorities, and prepares every conversation. You sell. It keeps the record.
 
 **How it works:**
 
@@ -96,7 +96,7 @@ The landing page explains the product and opens the working chat immediately.
 2. Ask anything about a contact, company, or opportunity and prepare the right next conversation.
 3. Tell Unoforce what happened in normal words; it confirms what it understood and updates the customer memory.
 
-**Primary action:** Plan my sales day.
+**Primary action:** See where to focus today.
 
 **Honesty note:** The Build Week version is a web chat using anonymized sample customer context. WhatsApp and live CRM connections are not yet active.
 
