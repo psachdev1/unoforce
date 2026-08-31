@@ -6,3 +6,4 @@
 - 2026-08-31: The live positioning now presents Unoforce as a personal sales coach for individual salespeople, with real-estate agents clearly identified as the first testing beachhead.
 - 2026-08-31: A salesperson can now choose from a full grouped daily plan, focus the chat on one relationship, and return only after recording an outcome, skipping unfinished work, or rescheduling it to a date.
 - 2026-08-31: Existing preview visitors now receive the current eight-activity grouped plan instead of an empty plan caused by incompatible four-lead browser data.
+- 2026-08-31: The page now opens directly on today's complete activity plan, and the hero explains the product in four short sentences.

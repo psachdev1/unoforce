@@ -15,10 +15,8 @@ export default function Home() {
           <p className="eyebrow">Your personal sales coach</p>
           <h1>Less admin. More selling.</h1>
           <p className="dek">
-            Plan your day, prepare for any customer conversation, and record what happened in
-            plain English. Unoforce keeps the details organized so you can focus on sales—not CRM
-            hygiene across all your tools. Spend more of your day on conversations that can move
-            revenue and commissions.
+            Plan your day. Prepare every conversation. Log outcomes in plain English. Unoforce
+            handles the admin, so you can sell.
           </p>
           <a className="primary-link" href="#coach">
             Plan my sales day <span aria-hidden="true">↓</span>

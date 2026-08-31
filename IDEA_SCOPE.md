@@ -76,7 +76,7 @@ The Unoforce chat has three jobs in v1:
 2. Explain what to do for a lead and help draft a message, call outline, or objection response.
 3. Accept natural notes and corrections about work done or what should happen next.
 
-The daily plan is not a three-card limit or a forced wizard. It shows all recommended unfinished activities, grouped into new outreach, warm nurture, active opportunities, and overdue work. The salesperson may choose any activity or ask Unoforce to reorder the plan.
+The daily plan is the default opening view; the salesperson should not need to request it. It is not a three-card limit or a forced wizard. It shows all recommended unfinished activities, grouped into new outreach, warm nurture, active opportunities, and overdue work. The salesperson may choose any activity or ask Unoforce to reorder the plan.
 
 Selecting an activity focuses the conversation on that contact, company, or opportunity. Before leaving an activity that was started, the salesperson must record an outcome, skip it while leaving it unfinished, or reschedule it to a required date. Only completed outcomes disappear from the unfinished plan.
 
@@ -88,7 +88,7 @@ The landing page explains the product and opens the working chat immediately.
 
 **Headline:** Less admin. More selling.
 
-**Supporting line:** Plan your day, prepare for any customer conversation, and record what happened in plain English. Unoforce keeps the details organized so you can focus on sales—not CRM hygiene across all your tools.
+**Supporting line:** Plan your day. Prepare every conversation. Log outcomes in plain English. Unoforce handles the admin, so you can sell.
 
 **How it works:**
 

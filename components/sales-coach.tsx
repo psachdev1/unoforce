@@ -18,6 +18,11 @@ const initialMessage: Message = {
   text: "Good morning. I’ve reviewed your sample leads. Ask me to plan your day, explore any relationship, prepare a conversation, or remember what happened.",
 };
 
+function openingMessages(leads: Lead[]): Message[] {
+  const plan = replyToCoach("Plan my sales day", leads);
+  return [initialMessage, { id: 1, role: "coach", text: plan.text, reply: plan }];
+}
+
 const prompts = [
   "Plan my sales day",
   "Tell me everything about Priya",
@@ -43,28 +48,33 @@ function isCurrentDemoData(value: unknown): value is Lead[] {
 
 export function SalesCoach() {
   const [leads, setLeads] = useState<Lead[]>(demoLeads);
-  const [messages, setMessages] = useState<Message[]>([initialMessage]);
+  const [messages, setMessages] = useState<Message[]>(() => openingMessages(demoLeads));
   const [input, setInput] = useState("");
   const [ready, setReady] = useState(false);
   const [activeLeadName, setActiveLeadName] = useState<string | null>(null);
   const [showCheckout, setShowCheckout] = useState(false);
   const [activityNote, setActivityNote] = useState("");
   const [laterDate, setLaterDate] = useState("");
-  const nextId = useRef(1);
+  const nextId = useRef(2);
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const saved = window.localStorage.getItem(demoStorageKey);
+    let openingLeads = demoLeads;
     if (saved) {
       try {
         const parsed: unknown = JSON.parse(saved);
-        if (isCurrentDemoData(parsed)) setLeads(parsed);
+        if (isCurrentDemoData(parsed)) {
+          openingLeads = parsed;
+          setLeads(parsed);
+        }
         else window.localStorage.removeItem(demoStorageKey);
       } catch {
         window.localStorage.removeItem(demoStorageKey);
       }
     }
     window.localStorage.removeItem("unoforce-demo-leads-v1");
+    setMessages(openingMessages(openingLeads));
     setReady(true);
   }, []);
 
@@ -180,7 +190,8 @@ export function SalesCoach() {
 
   function resetDemo() {
     setLeads(demoLeads);
-    setMessages([initialMessage]);
+    setMessages(openingMessages(demoLeads));
+    nextId.current = 2;
     window.localStorage.removeItem(demoStorageKey);
     window.localStorage.removeItem("unoforce-demo-leads-v1");
     setActiveLeadName(null);
