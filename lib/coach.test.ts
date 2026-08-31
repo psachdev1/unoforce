@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applyLeadUpdate, isActivityOutcome, replyToCoach } from "./coach";
+import { activityOutcomeNeedsFollowUp, applyLeadUpdate, isActivityOutcome, replyToCoach } from "./coach";
 import { demoLeads } from "./demo-data";
 
 describe("sales coach", () => {
@@ -7,6 +7,12 @@ describe("sales coach", () => {
     expect(isActivityOutcome("Spoke to Priya. Bank approval arrives Friday.")).toBe(true);
     expect(isActivityOutcome("No answer — try again tomorrow")).toBe(true);
     expect(isActivityOutcome("Which channel should I use?")).toBe(false);
+  });
+
+  it("asks deeper only when a real conversation has no next action", () => {
+    expect(activityOutcomeNeedsFollowUp("No answer — try again tomorrow")).toBe(false);
+    expect(activityOutcomeNeedsFollowUp("Spoke to Priya. Bank approval arrives Friday.")).toBe(true);
+    expect(activityOutcomeNeedsFollowUp("Spoke to Priya. Follow up Monday by WhatsApp.")).toBe(false);
   });
   it("returns the full unfinished plan for today's brief", () => {
     const reply = replyToCoach("Plan my sales day", demoLeads);

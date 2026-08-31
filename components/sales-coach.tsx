@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
-import { applyLeadUpdate, isActivityOutcome, replyToCoach, type CoachReply, type Lead } from "@/lib/coach";
+import { activityOutcomeNeedsFollowUp, applyLeadUpdate, isActivityOutcome, replyToCoach, type CoachReply, type Lead } from "@/lib/coach";
 import { demoLeads } from "@/lib/demo-data";
 import { DailyBrief } from "./daily-brief";
 
@@ -54,6 +54,7 @@ export function SalesCoach() {
   const [activeLeadName, setActiveLeadName] = useState<string | null>(null);
   const [showCheckout, setShowCheckout] = useState(false);
   const [laterDate, setLaterDate] = useState("");
+  const [pendingOutcome, setPendingOutcome] = useState<string | null>(null);
   const nextId = useRef(2);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -95,7 +96,23 @@ export function SalesCoach() {
       return;
     }
 
+    if (pendingOutcome && activeLeadName) {
+      finishActivity("Update recorded", `${pendingOutcome} ${clean}`);
+      setPendingOutcome(null);
+      setInput("");
+      return;
+    }
+
     if (activeLeadName && isActivityOutcome(clean)) {
+      if (activityOutcomeNeedsFollowUp(clean)) {
+        setPendingOutcome(clean);
+        setMessages((current) => [...current,
+          { id: nextId.current++, role: "agent", text: clean },
+          { id: nextId.current++, role: "coach", text: "Got it. What should happen next, when, and through which channel?" },
+        ]);
+        setInput("");
+        return;
+      }
       finishActivity("Update recorded", clean);
       setInput("");
       return;
@@ -122,6 +139,7 @@ export function SalesCoach() {
     if (!lead) return;
     setActiveLeadName(name);
     setShowCheckout(false);
+    setPendingOutcome(null);
     const coachMessage: Message = {
       id: nextId.current++,
       role: "coach",
@@ -140,30 +158,40 @@ export function SalesCoach() {
 
   function finishActivity(outcome: string, note?: string) {
     if (!activeLeadName) return;
+    const name = activeLeadName;
     const detail = note?.trim() || outcome;
-    setLeads((current) => current.map((lead) =>
-      lead.name === activeLeadName
+    const nextLeads = leads.map((lead) =>
+      lead.name === name
         ? { ...lead, taskStatus: "completed" as const, explicitInstruction: detail }
         : lead,
-    ));
+    );
+    setLeads(nextLeads);
     const coachMessage: Message = {
       id: nextId.current++,
       role: "coach",
-      text: `Recorded for ${activeLeadName}: ${detail}. This activity is complete and will not appear in the unfinished plan.`,
+      text: `Recorded for ${name}: ${detail}. Moving you back to the refreshed plan.`,
     };
-    setMessages((current) => [...current, coachMessage]);
+    const plan = replyToCoach("Plan my sales day", nextLeads);
+    const planMessage: Message = { id: nextId.current++, role: "coach", text: plan.text, reply: plan };
+    setMessages((current) => [
+      ...current,
+      { id: nextId.current++, role: "agent", text: detail },
+      coachMessage,
+      planMessage,
+    ]);
     setActiveLeadName(null);
     setShowCheckout(false);
+    setPendingOutcome(null);
   }
 
   function skipActivity() {
     if (!activeLeadName) return;
     const name = activeLeadName;
-    setMessages((current) => [...current, {
-      id: nextId.current++,
-      role: "coach",
-      text: `${name} is still unfinished and remains on today’s plan.`,
-    }]);
+    const plan = replyToCoach("Plan my sales day", leads);
+    setMessages((current) => [...current,
+      { id: nextId.current++, role: "coach", text: `${name} is still unfinished. Returning to today’s plan.` },
+      { id: nextId.current++, role: "coach", text: plan.text, reply: plan },
+    ]);
     setActiveLeadName(null);
     setShowCheckout(false);
   }
@@ -171,19 +199,19 @@ export function SalesCoach() {
   function rescheduleActivity() {
     if (!activeLeadName || !laterDate) return;
     const formatted = new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format(new Date(`${laterDate}T12:00:00`));
-    setLeads((current) => current.map((lead) =>
-      lead.name === activeLeadName
-        ? { ...lead, taskStatus: "rescheduled" as const, due: formatted }
-        : lead,
-    ));
-    setMessages((current) => [...current, {
-      id: nextId.current++,
-      role: "coach",
-      text: `${activeLeadName} remains unfinished and is rescheduled for ${formatted}.`,
-    }]);
+    const nextLeads = leads.map((lead) =>
+      lead.name === activeLeadName ? { ...lead, taskStatus: "rescheduled" as const, due: formatted } : lead,
+    );
+    setLeads(nextLeads);
+    const plan = replyToCoach("Plan my sales day", nextLeads);
+    setMessages((current) => [...current,
+      { id: nextId.current++, role: "coach", text: `${activeLeadName} remains unfinished and is rescheduled for ${formatted}. Returning to today’s plan.` },
+      { id: nextId.current++, role: "coach", text: plan.text, reply: plan },
+    ]);
     setActiveLeadName(null);
     setShowCheckout(false);
     setLaterDate("");
+    setPendingOutcome(null);
   }
 
   function submit(event: FormEvent) {
@@ -206,6 +234,7 @@ export function SalesCoach() {
     window.localStorage.removeItem("unoforce-demo-leads-v1");
     setActiveLeadName(null);
     setShowCheckout(false);
+    setPendingOutcome(null);
   }
 
   return (

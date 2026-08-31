@@ -82,6 +82,8 @@ Selecting an activity focuses the conversation on that contact, company, or oppo
 
 While an activity is active, activity buttons in earlier chat messages are disabled. The same single chat composer immediately handles both questions about the active relationship and natural-language activity outcomes. A recognized outcome closes the activity without another form. If the salesperson returns to today without logging an outcome, the same composer becomes the required outcome field; checkout must never add a second text box or allow regular chat until the activity is closed.
 
+After a clear outcome such as no answer, voicemail, or message sent, Unoforce records it and immediately returns to the refreshed unfinished plan. After a real conversation without a next action, it stays in the active relationship and asks one focused follow-up question. Once the next action is known, it records the combined update and returns automatically.
+
 The Vercel page is the working Build Week product. It is a conversation, not a pipeline, contact table, or CRM form.
 
 ### Landing Page Contract

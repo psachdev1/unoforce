@@ -28,6 +28,12 @@ export function isActivityOutcome(input: string) {
   return /^(spoke|called|met|sent|emailed|messaged|connected|no answer|left (a )?voicemail|could not connect|did not connect|done|completed|finished|they replied|customer replied)\b/i.test(input.trim());
 }
 
+export function activityOutcomeNeedsFollowUp(input: string) {
+  const normalized = input.trim().toLowerCase();
+  if (/^(no answer|left (a )?voicemail|could not connect|did not connect|sent|emailed|messaged|done|completed|finished)\b/.test(normalized)) return false;
+  return !/\b(follow.?up|call (again|back)|message (again|back)|email (again|back)|send|meet|visit|reschedule|wait until|next step)\b/.test(normalized);
+}
+
 const firstName = (name: string) => name.split(" ")[0];
 
 function findLead(input: string, leads: Lead[]) {
@@ -52,7 +58,7 @@ export function replyToCoach(input: string, leads: Lead[]): CoachReply {
   if (/what.*(today|do)|daily brief|plan my sales day|who.*(contact|call|outreach|follow)/.test(normalized)) {
     return {
       kind: "brief",
-      text: "Here are the three conversations most worth moving today.",
+      text: "Here is your complete unfinished sales plan for today.",
       actions: ranked(leads),
     };
   }
