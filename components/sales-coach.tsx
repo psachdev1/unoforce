@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
-import { applyLeadUpdate, replyToCoach, type CoachReply, type Lead } from "@/lib/coach";
+import { applyLeadUpdate, isActivityOutcome, replyToCoach, type CoachReply, type Lead } from "@/lib/coach";
 import { demoLeads } from "@/lib/demo-data";
 import { DailyBrief } from "./daily-brief";
 
@@ -90,6 +90,12 @@ export function SalesCoach() {
     if (!clean) return;
 
     if (showCheckout && activeLeadName) {
+      finishActivity("Update recorded", clean);
+      setInput("");
+      return;
+    }
+
+    if (activeLeadName && isActivityOutcome(clean)) {
       finishActivity("Update recorded", clean);
       setInput("");
       return;
@@ -287,7 +293,9 @@ export function SalesCoach() {
             onKeyDown={handleKeyDown}
             placeholder={showCheckout
               ? "What changed, what was agreed, and what happens next?"
-              : "For Priya, wait for the ABC Builders launch…"}
+              : activeLeadName
+                ? `Ask about ${activeLeadName.split(" ")[0]} or log what happened…`
+                : "Ask anything or add a customer update…"}
           />
           <button type="submit" disabled={!input.trim()} aria-label={showCheckout ? "Save outcome" : "Send message"}>
             {showCheckout ? "Save outcome" : "Send"}

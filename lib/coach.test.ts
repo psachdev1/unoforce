@@ -1,8 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { applyLeadUpdate, replyToCoach } from "./coach";
+import { applyLeadUpdate, isActivityOutcome, replyToCoach } from "./coach";
 import { demoLeads } from "./demo-data";
 
 describe("sales coach", () => {
+  it("recognizes common activity outcomes without another form", () => {
+    expect(isActivityOutcome("Spoke to Priya. Bank approval arrives Friday.")).toBe(true);
+    expect(isActivityOutcome("No answer — try again tomorrow")).toBe(true);
+    expect(isActivityOutcome("Which channel should I use?")).toBe(false);
+  });
   it("returns the full unfinished plan for today's brief", () => {
     const reply = replyToCoach("Plan my sales day", demoLeads);
     expect(reply.kind).toBe("brief");

@@ -24,6 +24,10 @@ export type CoachReply = {
   leadName?: string;
 };
 
+export function isActivityOutcome(input: string) {
+  return /^(spoke|called|met|sent|emailed|messaged|connected|no answer|left (a )?voicemail|could not connect|did not connect|done|completed|finished|they replied|customer replied)\b/i.test(input.trim());
+}
+
 const firstName = (name: string) => name.split(" ")[0];
 
 function findLead(input: string, leads: Lead[]) {

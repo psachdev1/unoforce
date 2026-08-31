@@ -80,7 +80,7 @@ The daily plan is the default opening view; the salesperson should not need to r
 
 Selecting an activity focuses the conversation on that contact, company, or opportunity. Before leaving an activity that was started, the salesperson must record an outcome, skip it while leaving it unfinished, or reschedule it to a required date. Only completed outcomes disappear from the unfinished plan.
 
-While an activity is active, activity buttons in earlier chat messages are disabled. The same single chat composer handles both normal questions and the required activity outcome; checkout must never add a second text box or allow regular chat until the current activity is closed.
+While an activity is active, activity buttons in earlier chat messages are disabled. The same single chat composer immediately handles both questions about the active relationship and natural-language activity outcomes. A recognized outcome closes the activity without another form. If the salesperson returns to today without logging an outcome, the same composer becomes the required outcome field; checkout must never add a second text box or allow regular chat until the activity is closed.
 
 The Vercel page is the working Build Week product. It is a conversation, not a pipeline, contact table, or CRM form.
 
