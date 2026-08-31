@@ -88,7 +88,7 @@ The landing page explains the product and opens the working chat immediately.
 
 **Headline:** Start every sales day with an edge.
 
-**Supporting line:** Unoforce finds the signal, sets your priorities, and prepares every conversation. You sell. It keeps the record.
+**Supporting line:** Focus on selling. Unoforce keeps the priorities, context, and records in order—without the fuss.
 
 **How it works:**
 

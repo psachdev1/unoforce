@@ -15,8 +15,8 @@ export default function Home() {
           <p className="eyebrow">Your personal sales coach</p>
           <h1>Start every sales day with an edge.</h1>
           <p className="dek">
-            Unoforce finds the signal, sets your priorities, and prepares every conversation.
-            You sell. It keeps the record.
+            Focus on selling. Unoforce keeps the priorities, context, and records in order—without
+            the fuss.
           </p>
           <a className="primary-link" href="#coach">
             See where to focus today <span aria-hidden="true">↓</span>
