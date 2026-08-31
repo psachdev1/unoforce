@@ -53,7 +53,6 @@ export function SalesCoach() {
   const [ready, setReady] = useState(false);
   const [activeLeadName, setActiveLeadName] = useState<string | null>(null);
   const [showCheckout, setShowCheckout] = useState(false);
-  const [activityNote, setActivityNote] = useState("");
   const [laterDate, setLaterDate] = useState("");
   const nextId = useRef(2);
   const endRef = useRef<HTMLDivElement>(null);
@@ -89,6 +88,12 @@ export function SalesCoach() {
   function send(text: string) {
     const clean = text.trim();
     if (!clean) return;
+
+    if (showCheckout && activeLeadName) {
+      finishActivity("Update recorded", clean);
+      setInput("");
+      return;
+    }
 
     const scopedInput = activeLeadName && !clean.toLowerCase().includes(activeLeadName.split(" ")[0].toLowerCase())
       ? `${clean} about ${activeLeadName}`
@@ -143,7 +148,6 @@ export function SalesCoach() {
     setMessages((current) => [...current, coachMessage]);
     setActiveLeadName(null);
     setShowCheckout(false);
-    setActivityNote("");
   }
 
   function skipActivity() {
@@ -228,7 +232,7 @@ export function SalesCoach() {
               {message.reply?.kind === "brief" && message.reply.actions ? (
                 <>
                   <p>{message.text}</p>
-                  <DailyBrief actions={message.reply.actions} onStart={startActivity} />
+                  <DailyBrief actions={message.reply.actions} onStart={startActivity} disabled={activeLeadName !== null} />
                 </>
               ) : (
                 <p>{message.text}</p>
@@ -249,11 +253,7 @@ export function SalesCoach() {
           <div className="quick-outcomes">
             <button type="button" onClick={() => finishActivity("No answer")}>No answer</button>
             <button type="button" onClick={() => finishActivity("Message sent")}>Message sent</button>
-            <button type="button" onClick={() => finishActivity("Connected — follow-up details still needed")}>Connected</button>
-          </div>
-          <div className="outcome-note">
-            <input value={activityNote} onChange={(event) => setActivityNote(event.target.value)} placeholder="What changed, what was agreed, and what happens next?" />
-            <button type="button" disabled={!activityNote.trim()} onClick={() => finishActivity("Update recorded", activityNote)}>Save update</button>
+            <button type="button" onClick={() => setInput("Connected. ")}>Connected — add details</button>
           </div>
           <div className="checkout-secondary">
             <button type="button" onClick={skipActivity}>Skip for now</button>
@@ -266,14 +266,18 @@ export function SalesCoach() {
         </section>
       ) : null}
 
-      <div className="prompt-row" aria-label="Suggested questions">
-        {(activeLeadName ? activityPrompts : prompts).map((prompt) => (
-          <button type="button" key={prompt} onClick={() => send(prompt)}>{prompt}</button>
-        ))}
-      </div>
+      {showCheckout ? null : (
+        <div className="prompt-row" aria-label="Suggested questions">
+          {(activeLeadName ? activityPrompts : prompts).map((prompt) => (
+            <button type="button" key={prompt} onClick={() => send(prompt)}>{prompt}</button>
+          ))}
+        </div>
+      )}
 
       <form className="composer" onSubmit={submit}>
-        <label htmlFor="coach-input">Ask anything or record what happened</label>
+        <label htmlFor="coach-input">
+          {showCheckout ? `Record what happened with ${activeLeadName}` : "Ask anything or record what happened"}
+        </label>
         <div className="composer-control">
           <textarea
             id="coach-input"
@@ -281,9 +285,13 @@ export function SalesCoach() {
             value={input}
             onChange={(event) => setInput(event.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="For Priya, wait for the ABC Builders launch…"
+            placeholder={showCheckout
+              ? "What changed, what was agreed, and what happens next?"
+              : "For Priya, wait for the ABC Builders launch…"}
           />
-          <button type="submit" disabled={!input.trim()} aria-label="Send message">Send</button>
+          <button type="submit" disabled={!input.trim()} aria-label={showCheckout ? "Save outcome" : "Send message"}>
+            {showCheckout ? "Save outcome" : "Send"}
+          </button>
         </div>
         <span>Enter to send · Shift + Enter for a new line</span>
       </form>

@@ -48,7 +48,9 @@ main { min-height: 100vh; overflow: hidden; }
   font-size: 11px;
   font-weight: 700;
 }
-.build-label { color: var(--pencil); }
+.site-nav { display: flex; align-items: center; gap: 8px; }
+.site-nav a { min-height: 40px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 5px; color: var(--pencil); text-decoration: none; font-size: 13px; font-weight: 650; }
+.site-nav a:hover { color: var(--blueprint); background: var(--input); }
 
 .intro {
   width: min(1180px, calc(100% - 48px));
@@ -140,6 +142,7 @@ h1 { max-width: 760px; margin: 0; font-size: clamp(56px, 7.4vw, 102px); line-hei
 .activity-actions { display: grid; justify-items: end; gap: 10px; }
 .activity-actions button { min-height: 38px; padding: 0 11px; border: 1px solid var(--action); border-radius: 5px; color: var(--action-dark); background: white; cursor: pointer; font-size: 11px; font-weight: 750; white-space: nowrap; }
 .activity-actions button:hover { color: white; background: var(--action); }
+.activity-actions button:disabled { border-color: var(--survey-line); color: #849094; background: var(--input); cursor: not-allowed; }
 .due { color: var(--pencil); font-size: 12px; text-align: right; }
 .activity-checkout { padding: 18px 24px; border-top: 1px solid var(--survey-line); background: #fff8e9; }
 .activity-checkout h3 { margin: 5px 0; color: var(--blueprint-deep); font-family: var(--font-display), serif; font-size: 24px; font-weight: 550; }
@@ -166,12 +169,29 @@ h1 { max-width: 760px; margin: 0; font-size: clamp(56px, 7.4vw, 102px); line-hei
 .composer-control button:active { transform: scale(0.97); }
 .composer-control button:disabled { color: #849094; background: #d6dddb; cursor: not-allowed; }
 .composer > span { display: block; margin-top: 7px; color: #7a878d; font-size: 10px; }
+.data-sources { width: min(1100px, calc(100% - 48px)); margin: 0 auto; padding: 88px 0 56px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; }
+.data-intro h2 { margin: 0; font-size: clamp(38px, 5vw, 62px); line-height: .98; letter-spacing: -.045em; }
+.data-intro > p:last-child { max-width: 460px; margin: 24px 0 0; color: var(--pencil); line-height: 1.55; }
+.source-menus { display: grid; align-content: start; gap: 12px; }
+.source-menus details { border-radius: 8px; background: white; box-shadow: var(--shadow-sheet); overflow: hidden; }
+.source-menus summary { min-height: 76px; padding: 16px 18px; display: grid; gap: 4px; cursor: pointer; list-style: none; }
+.source-menus summary::-webkit-details-marker { display: none; }
+.source-menus summary span { color: var(--blueprint-deep); font-size: 17px; font-weight: 750; }
+.source-menus summary strong { color: var(--pencil); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; }
+.source-menus details[open] summary { border-bottom: 1px solid var(--survey-line); }
+.source-menus ul { list-style: none; margin: 0; padding: 4px 18px 14px; }
+.source-menus li { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 12px 0; border-bottom: 1px solid rgba(23,51,74,.08); }
+.source-menus li:last-child { border-bottom: 0; }
+.source-menus li span { font-weight: 700; }
+.source-menus li small { color: var(--pencil); text-align: right; }
+.planned-note { grid-column: 2; margin: -54px 0 0; color: var(--pencil); font-size: 11px; }
 footer { max-width: 1100px; margin: 0 auto; padding: 34px 24px 48px; color: var(--pencil); font-size: 12px; text-align: center; }
 
 @media (max-width: 760px) {
   .masthead, .intro { width: min(100% - 32px, 1180px); }
   .masthead { height: 64px; }
-  .build-label { display: none; }
+  .site-nav { gap: 0; }
+  .site-nav a { padding: 0 8px; font-size: 12px; }
   .intro { min-height: 0; grid-template-columns: 1fr; gap: 52px; padding: 72px 0 64px; }
   h1 { font-size: clamp(52px, 17vw, 76px); }
   .dek { margin: 24px 0; font-size: 18px; }
@@ -202,6 +222,8 @@ footer { max-width: 1100px; margin: 0 auto; padding: 34px 24px 48px; color: var(
   .prompt-row { padding: 10px 12px; }
   .composer { padding: 10px 12px 14px; }
   .composer > span { display: none; }
+  .data-sources { width: min(100% - 32px, 1100px); padding: 64px 0 36px; grid-template-columns: 1fr; gap: 32px; }
+  .planned-note { grid-column: 1; margin: -18px 0 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

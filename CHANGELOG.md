@@ -9,3 +9,4 @@
 - 2026-08-31: The page now opens directly on today's complete activity plan, and the hero explains the product in four short sentences.
 - 2026-08-31: The page now leads with sales insight and prioritization, and each recommended activity starts with a simple “Let’s do it.”
 - 2026-08-31: The hero now tells salespeople to focus on selling while Unoforce keeps their priorities, context, and records in order.
+- 2026-08-31: Active work now disables historical activity buttons and reuses the single chat composer for outcomes; a clearly labelled Data Sources menu shows planned import and integration paths.

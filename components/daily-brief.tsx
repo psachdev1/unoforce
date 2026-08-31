@@ -14,7 +14,15 @@ const stageLabel = {
   waiting: "Waiting",
 };
 
-export function DailyBrief({ actions, onStart }: { actions: LeadAction[]; onStart: (name: string) => void }) {
+export function DailyBrief({
+  actions,
+  onStart,
+  disabled = false,
+}: {
+  actions: LeadAction[];
+  onStart: (name: string) => void;
+  disabled?: boolean;
+}) {
   return (
     <div className="brief-sheet" aria-label="Today's sales plan">
       <div className="brief-header">
@@ -51,7 +59,9 @@ export function DailyBrief({ actions, onStart }: { actions: LeadAction[]; onStar
                     </div>
                     <div className="activity-actions">
                       <span className="due">{action.due}</span>
-                      <button type="button" onClick={() => onStart(action.name)}>Let’s do it</button>
+                      <button type="button" disabled={disabled} onClick={() => onStart(action.name)}>
+                        {disabled ? "Finish current first" : "Let’s do it"}
+                      </button>
                     </div>
                   </li>
                 ))}
