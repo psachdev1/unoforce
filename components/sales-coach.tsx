@@ -31,6 +31,16 @@ const activityPrompts = [
   "Prepare me for likely objections",
 ];
 
+const demoStorageKey = "unoforce-demo-leads-v2";
+
+function isCurrentDemoData(value: unknown): value is Lead[] {
+  return Array.isArray(value) && value.length > 0 && value.every((lead) => {
+    if (!lead || typeof lead !== "object") return false;
+    const candidate = lead as Partial<Lead>;
+    return typeof candidate.name === "string" && typeof candidate.workstream === "string" && typeof candidate.channel === "string";
+  });
+}
+
 export function SalesCoach() {
   const [leads, setLeads] = useState<Lead[]>(demoLeads);
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
@@ -44,19 +54,22 @@ export function SalesCoach() {
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const saved = window.localStorage.getItem("unoforce-demo-leads-v1");
+    const saved = window.localStorage.getItem(demoStorageKey);
     if (saved) {
       try {
-        setLeads(JSON.parse(saved) as Lead[]);
+        const parsed: unknown = JSON.parse(saved);
+        if (isCurrentDemoData(parsed)) setLeads(parsed);
+        else window.localStorage.removeItem(demoStorageKey);
       } catch {
-        window.localStorage.removeItem("unoforce-demo-leads-v1");
+        window.localStorage.removeItem(demoStorageKey);
       }
     }
+    window.localStorage.removeItem("unoforce-demo-leads-v1");
     setReady(true);
   }, []);
 
   useEffect(() => {
-    if (ready) window.localStorage.setItem("unoforce-demo-leads-v1", JSON.stringify(leads));
+    if (ready) window.localStorage.setItem(demoStorageKey, JSON.stringify(leads));
   }, [leads, ready]);
 
   useEffect(() => {
@@ -168,6 +181,7 @@ export function SalesCoach() {
   function resetDemo() {
     setLeads(demoLeads);
     setMessages([initialMessage]);
+    window.localStorage.removeItem(demoStorageKey);
     window.localStorage.removeItem("unoforce-demo-leads-v1");
     setActiveLeadName(null);
     setShowCheckout(false);
