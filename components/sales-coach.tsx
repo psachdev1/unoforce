@@ -15,13 +15,13 @@ type Message = {
 const initialMessage: Message = {
   id: 0,
   role: "coach",
-  text: "Good morning. I’ve reviewed your sample leads. Ask for today’s brief, prepare for a conversation, or tell me what changed.",
+  text: "Good morning. I’ve reviewed your sample leads. Ask me to plan your day, explore any relationship, prepare a conversation, or remember what happened.",
 };
 
 const prompts = [
-  "What should I do today?",
-  "Why should I contact Priya?",
-  "Draft a message for Priya",
+  "Plan my sales day",
+  "Tell me everything about Priya",
+  "Prepare my next message to Priya",
   "Wait for the ABC Builders launch before contacting Priya",
 ];
 
@@ -93,7 +93,7 @@ export function SalesCoach() {
       <div className="coach-bar">
         <div className="coach-identity">
           <span className="coach-mark" aria-hidden="true">U</span>
-          <div><strong>Unoforce</strong><span>Ready with your daily brief</span></div>
+          <div><strong>Unoforce</strong><span>Your personal sales coach</span></div>
         </div>
         <button className="reset-button" type="button" onClick={resetDemo}>Reset preview</button>
       </div>
@@ -124,7 +124,7 @@ export function SalesCoach() {
       </div>
 
       <form className="composer" onSubmit={submit}>
-        <label htmlFor="coach-input">Ask about a lead or add an update</label>
+        <label htmlFor="coach-input">Ask anything or record what happened</label>
         <div className="composer-control">
           <textarea
             id="coach-input"

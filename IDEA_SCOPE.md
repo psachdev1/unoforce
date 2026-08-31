@@ -24,7 +24,7 @@ Keep the previous verified deployment available as the rollback point. If the li
 
 ## Before Any Build: Test the Riskiest Assumption
 
-**Assumption:** The customer context already available to a real-estate agent, plus natural notes they give a sales assistant, contains enough information to produce a daily action list the agent trusts. The agent should not need CRM fields, forms, or a recap template.
+**Assumption:** The customer context already available to an individual salesperson, plus natural notes they give a sales assistant, contains enough information to produce a daily action list and relationship answers they trust. The salesperson should not need CRM fields, forms, or a recap template. Solo real-estate agents are the first testing beachhead.
 
 **30-minute no-code test:**
 
@@ -55,10 +55,10 @@ This is the primary-audience hypothesis, not a verified description of a named a
 
 | Decision | Locked scope |
 |---|---|
-| Product | Unoforce is a chat-based personal sales coach that uses available customer context to tell an agent who needs attention today, why, and what to do next. WhatsApp is the intended daily channel after the core job is proven. |
-| User | Primary entry segment: a growing solo residential real-estate agent who receives inbound prospect inquiries in WhatsApp from paid ads or property marketplaces. Wider eligible user: a solo agent who manages a meaningful volume of long-running client follow-ups in WhatsApp, even if those clients came through referrals or their network. The account belongs to the agent, not a brokerage. |
+| Product | Unoforce is a personal sales coach that helps an individual salesperson plan the day, understand any relationship or opportunity, and record updates through plain-English conversation. Connected CRMs and communication tools eventually stay current in the background. |
+| User | Long-term market: any individual salesperson who works across conversations and tools. First testing beachhead: growing solo residential real-estate agents who receive leads from paid ads, property marketplaces, and referrals. The account belongs to the salesperson, not their company or team. |
 | Pain | Important client context and promised follow-ups remain scattered across long-running conversations, so the agent loses the right next action. |
-| Core action | The agent asks what to do today, explores the reason or suggested approach for a lead, and drops a natural update. Unoforce returns an updated priority list without asking the agent to maintain CRM fields. |
+| Core action | The salesperson plans the day, asks any question about a contact, company, or opportunity, and records work in natural language. Unoforce returns structured actions and confirms what it understood without asking the salesperson to maintain CRM fields. |
 | Account boundary | One account belongs to one agent. Nothing is shared with a brokerage, manager, team, or other agent. |
 | Explicit instruction rule | An agent's explicit instruction overrides an inferred fact or action. Uncertain inferences must be confirmed rather than silently saved as facts. |
 | Client matching | Match by phone number or an unambiguous existing name. Ask one clarification question when more than one client matches. |
@@ -82,17 +82,17 @@ The Vercel page is the working Build Week product. It is a conversation, not a p
 
 The landing page explains the product and opens the working chat immediately.
 
-**Headline:** Know which lead needs you next.
+**Headline:** Less admin. More selling.
 
-**Supporting line:** Unoforce remembers the context, suggests the next move, and records your updates through one simple conversation.
+**Supporting line:** Plan your day, prepare for any customer conversation, and record what happened in plain English. Unoforce keeps the details organized so you can focus on sales—not CRM hygiene across all your tools.
 
 **How it works:**
 
-1. Ask who needs attention today.
-2. Get the reason, the next move, and help preparing the message or call.
-3. Tell Unoforce what happened in normal words; the customer memory updates in the background.
+1. Plan and prioritize outreach, warm nurture, active opportunities, and waiting relationships.
+2. Ask anything about a contact, company, or opportunity and prepare the right next conversation.
+3. Tell Unoforce what happened in normal words; it confirms what it understood and updates the customer memory.
 
-**Primary action:** Open my daily brief.
+**Primary action:** Plan my sales day.
 
 **Honesty note:** The Build Week version is a web chat using anonymized sample customer context. WhatsApp and live CRM connections are not yet active.
 

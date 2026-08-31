@@ -4,10 +4,17 @@ import { demoLeads } from "./demo-data";
 
 describe("sales coach", () => {
   it("returns three ranked actions for today's brief", () => {
-    const reply = replyToCoach("What should I do today?", demoLeads);
+    const reply = replyToCoach("Plan my sales day", demoLeads);
     expect(reply.kind).toBe("brief");
     expect(reply.actions).toHaveLength(3);
     expect(reply.actions?.[0].name).toBe("Arjun Rao");
+  });
+
+  it("answers an open relationship summary question", () => {
+    const reply = replyToCoach("Tell me everything about Priya", demoLeads);
+    expect(reply.kind).toBe("answer");
+    expect(reply.text).toContain("3-bedroom home");
+    expect(reply.text).toContain("Recommended move");
   });
 
   it("explains a lead from stored context", () => {

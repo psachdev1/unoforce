@@ -41,7 +41,7 @@ export function replyToCoach(input: string, leads: Lead[]): CoachReply {
   const normalized = input.trim().toLowerCase();
   const lead = findLead(input, leads);
 
-  if (/what.*(today|do)|daily brief|who.*(contact|call|outreach|follow)/.test(normalized)) {
+  if (/what.*(today|do)|daily brief|plan my sales day|who.*(contact|call|outreach|follow)/.test(normalized)) {
     return {
       kind: "brief",
       text: "Here are the three conversations most worth moving today.",
@@ -49,7 +49,7 @@ export function replyToCoach(input: string, leads: Lead[]): CoachReply {
     };
   }
 
-  if (lead && /why|context|remember|know about/.test(normalized)) {
+  if (lead && /why|context|remember|know about|everything about|summary|summarize/.test(normalized)) {
     return {
       kind: "answer",
       leadName: lead.name,

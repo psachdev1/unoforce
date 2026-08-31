@@ -12,24 +12,25 @@ export default function Home() {
 
       <section className="intro" id="top">
         <div className="intro-copy">
-          <p className="eyebrow">A sales coach for a team of one</p>
-          <h1>Know which lead needs you next.</h1>
+          <p className="eyebrow">Your personal sales coach</p>
+          <h1>Less admin. More selling.</h1>
           <p className="dek">
-            Unoforce remembers the context, suggests the next move, and records your updates
-            through one simple conversation.
+            Plan your day, prepare for any customer conversation, and record what happened in
+            plain English. Unoforce keeps the details organized so you can focus on sales—not CRM
+            hygiene across all your tools.
           </p>
           <a className="primary-link" href="#coach">
-            Open my daily brief <span aria-hidden="true">↓</span>
+            Plan my sales day <span aria-hidden="true">↓</span>
           </a>
         </div>
         <aside className="promise" aria-label="What Unoforce helps with">
-          <p className="promise-label">Your working rhythm</p>
+          <p className="promise-label">Three jobs, one conversation</p>
           <ol>
-            <li><span>01</span> Ask who needs attention today.</li>
-            <li><span>02</span> Prepare the next message or call.</li>
-            <li><span>03</span> Drop an update in normal words.</li>
+            <li><span>01</span> Plan and prioritize my sales day.</li>
+            <li><span>02</span> Understand any relationship or opportunity.</li>
+            <li><span>03</span> Record what happened in plain English.</li>
           </ol>
-          <p className="promise-note">No pipeline to clean. No fields to maintain.</p>
+          <p className="promise-note">No pipeline to clean. No updates copied between tools.</p>
         </aside>
       </section>
 
@@ -37,17 +38,20 @@ export default function Home() {
         <div className="section-heading">
           <div>
             <p className="eyebrow">Live product preview</p>
-            <h2 id="coach-title">Start with today.</h2>
+            <h2 id="coach-title">Just tell it what you need.</h2>
           </div>
-          <p>One fictional book of business. Your updates stay in this browser for this preview.</p>
+          <p>
+            Ask in plain English. This preview uses a fictional real-estate book of business,
+            our first testing beachhead.
+          </p>
         </div>
         <SalesCoach />
       </section>
 
       <footer>
         <p>
-          This Build Week preview uses fictional customer context. It is not yet connected to
-          WhatsApp or a CRM.
+          This preview uses fictional customer context and browser-only memory. CRM, messaging,
+          dialer, and transcript connections are planned—not live.
         </p>
       </footer>
     </main>
