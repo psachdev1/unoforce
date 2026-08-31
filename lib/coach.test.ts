@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { activityOutcomeNeedsFollowUp, applyLeadUpdate, isActivityOutcome, replyToCoach } from "./coach";
+import { activityOutcomeNeedsFollowUp, applyLeadUpdate, classifyActiveInput, isActivityOutcome, replyToCoach } from "./coach";
 import { demoLeads } from "./demo-data";
 
 describe("sales coach", () => {
@@ -13,6 +13,18 @@ describe("sales coach", () => {
     expect(activityOutcomeNeedsFollowUp("No answer — try again tomorrow")).toBe(false);
     expect(activityOutcomeNeedsFollowUp("Spoke to Priya. Bank approval arrives Friday.")).toBe(true);
     expect(activityOutcomeNeedsFollowUp("Spoke to Priya. Follow up Monday by WhatsApp.")).toBe(false);
+  });
+
+  it("does not mistake lead questions for recorded outcomes", () => {
+    expect(classifyActiveInput("Called Priya before?")).toBe("question");
+    expect(classifyActiveInput("Did Priya mention her budget?")).toBe("question");
+    expect(classifyActiveInput("Which channel should I use?")).toBe("question");
+  });
+
+  it("recognizes future follow-up instructions without asking for a summary", () => {
+    expect(classifyActiveInput("Call back next week same time")).toBe("reschedule");
+    expect(classifyActiveInput("Follow up on Monday")).toBe("reschedule");
+    expect(classifyActiveInput("Spoke to Priya today")).toBe("outcome");
   });
   it("returns the full unfinished plan for today's brief", () => {
     const reply = replyToCoach("Plan my sales day", demoLeads);

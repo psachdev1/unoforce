@@ -13,3 +13,4 @@
 - 2026-08-31: During an active activity, the main composer now accepts either customer questions or common plain-English outcomes and closes completed work without opening another form.
 - 2026-08-31: Clear outcomes now return directly to the refreshed sales plan; real conversations with no next step stay focused and ask one follow-up question before returning.
 - 2026-08-31: The header now links directly to Import and Integrations sections marked Coming soon, with Get Started as the primary header and hero action.
+- 2026-08-31: Active chat now distinguishes questions, future instructions, completed outcomes, and ordinary conversation before deciding whether to save, ask deeper, or return to the plan.

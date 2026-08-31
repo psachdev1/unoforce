@@ -24,8 +24,24 @@ export type CoachReply = {
   leadName?: string;
 };
 
+export type ActiveInputIntent = "question" | "reschedule" | "outcome" | "conversation";
+
+export function classifyActiveInput(input: string): ActiveInputIntent {
+  const normalized = input.trim().toLowerCase();
+  const startsLikeQuestion = /^(what|why|how|which|when|where|who|can|could|should|would|do|does|did|is|are|tell me|help me|prepare|summarize|draft)\b/.test(normalized);
+  if (normalized.endsWith("?") || startsLikeQuestion) return "question";
+
+  const futureAction = /^(call|follow.?up|contact|message|email|remind|try).+\b(tomorrow|later|next (week|month)|this (afternoon|evening|week)|monday|tuesday|wednesday|thursday|friday|saturday|sunday|same time)\b/.test(normalized);
+  if (futureAction) return "reschedule";
+
+  const completedAction = /^(spoke|called|met|sent|emailed|messaged|connected|no answer|left (a )?voicemail|could not connect|did not connect|done|completed|finished|they replied|customer replied)\b/.test(normalized);
+  if (completedAction) return "outcome";
+
+  return "conversation";
+}
+
 export function isActivityOutcome(input: string) {
-  return /^(spoke|called|met|sent|emailed|messaged|connected|no answer|left (a )?voicemail|could not connect|did not connect|done|completed|finished|they replied|customer replied)\b/i.test(input.trim());
+  return classifyActiveInput(input) === "outcome";
 }
 
 export function activityOutcomeNeedsFollowUp(input: string) {

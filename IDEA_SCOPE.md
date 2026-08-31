@@ -84,6 +84,8 @@ While an activity is active, activity buttons in earlier chat messages are disab
 
 After a clear outcome such as no answer, voicemail, or message sent, Unoforce records it and immediately returns to the refreshed unfinished plan. After a real conversation without a next action, it stays in the active relationship and asks one focused follow-up question. Once the next action is known, it records the combined update and returns automatically.
 
+Active-chat intent must be resolved in this order: question, future instruction or reschedule, completed outcome, then ordinary conversation. A question is never silently saved as an activity. A clear future instruction such as “Call back next week, same time” updates and reschedules the activity without asking for an outcome summary.
+
 The Vercel page is the working Build Week product. It is a conversation, not a pipeline, contact table, or CRM form.
 
 ### Landing Page Contract

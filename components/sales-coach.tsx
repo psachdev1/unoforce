@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
-import { activityOutcomeNeedsFollowUp, applyLeadUpdate, isActivityOutcome, replyToCoach, type CoachReply, type Lead } from "@/lib/coach";
+import { activityOutcomeNeedsFollowUp, applyLeadUpdate, classifyActiveInput, replyToCoach, type CoachReply, type Lead } from "@/lib/coach";
 import { demoLeads } from "@/lib/demo-data";
 import { DailyBrief } from "./daily-brief";
 
@@ -103,7 +103,15 @@ export function SalesCoach() {
       return;
     }
 
-    if (activeLeadName && isActivityOutcome(clean)) {
+    const activeIntent = activeLeadName ? classifyActiveInput(clean) : "conversation";
+
+    if (activeLeadName && activeIntent === "reschedule") {
+      rescheduleFromMessage(clean);
+      setInput("");
+      return;
+    }
+
+    if (activeLeadName && activeIntent === "outcome") {
       if (activityOutcomeNeedsFollowUp(clean)) {
         setPendingOutcome(clean);
         setMessages((current) => [...current,
@@ -211,6 +219,28 @@ export function SalesCoach() {
     setActiveLeadName(null);
     setShowCheckout(false);
     setLaterDate("");
+    setPendingOutcome(null);
+  }
+
+  function rescheduleFromMessage(instruction: string) {
+    if (!activeLeadName) return;
+    const name = activeLeadName;
+    const timing = instruction.match(/\b(tomorrow|later|next (?:week|month)|this (?:afternoon|evening|week)|monday|tuesday|wednesday|thursday|friday|saturday|sunday)(?:\s+same time)?\b/i)?.[0] ?? "Later";
+    const due = timing.replace(/^\w/, (letter) => letter.toUpperCase());
+    const nextLeads = leads.map((lead) =>
+      lead.name === name
+        ? { ...lead, taskStatus: "rescheduled" as const, due, explicitInstruction: instruction, nextAction: instruction }
+        : lead,
+    );
+    setLeads(nextLeads);
+    const plan = replyToCoach("Plan my sales day", nextLeads);
+    setMessages((current) => [...current,
+      { id: nextId.current++, role: "agent", text: instruction },
+      { id: nextId.current++, role: "coach", text: `Saved for ${name}: ${instruction}. Returning to the refreshed plan.` },
+      { id: nextId.current++, role: "coach", text: plan.text, reply: plan },
+    ]);
+    setActiveLeadName(null);
+    setShowCheckout(false);
     setPendingOutcome(null);
   }
 
