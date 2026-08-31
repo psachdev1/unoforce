@@ -51,6 +51,9 @@ main { min-height: 100vh; overflow: hidden; }
 .site-nav { display: flex; align-items: center; gap: 8px; }
 .site-nav a { min-height: 40px; display: inline-flex; align-items: center; padding: 0 12px; border-radius: 5px; color: var(--pencil); text-decoration: none; font-size: 13px; font-weight: 650; }
 .site-nav a:hover { color: var(--blueprint); background: var(--input); }
+.site-nav .nav-primary { margin-left: 4px; padding: 0 16px; color: white; background: var(--action); }
+.site-nav .nav-primary:hover { color: white; background: var(--action-dark); }
+.source-menus details { scroll-margin-top: 24px; }
 
 .intro {
   width: min(1180px, calc(100% - 48px));
@@ -192,6 +195,7 @@ footer { max-width: 1100px; margin: 0 auto; padding: 34px 24px 48px; color: var(
   .masthead { height: 64px; }
   .site-nav { gap: 0; }
   .site-nav a { padding: 0 8px; font-size: 12px; }
+  .site-nav .nav-primary { padding: 0 10px; }
   .intro { min-height: 0; grid-template-columns: 1fr; gap: 52px; padding: 72px 0 64px; }
   h1 { font-size: clamp(52px, 17vw, 76px); }
   .dek { margin: 24px 0; font-size: 18px; }

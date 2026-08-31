@@ -100,7 +100,7 @@ The landing page explains the product and opens the working chat immediately.
 2. Ask anything about a contact, company, or opportunity and prepare the right next conversation.
 3. Tell Unoforce what happened in normal words; it confirms what it understood and updates the customer memory.
 
-**Primary action:** See where to focus today.
+**Primary action:** Get Started.
 
 **Honesty note:** The Build Week version is a web chat using anonymized sample customer context. WhatsApp and live CRM connections are not yet active.
 

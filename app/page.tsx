@@ -8,8 +8,9 @@ export default function Home() {
           uno<span>force</span>
         </a>
         <nav className="site-nav" aria-label="Product navigation">
-          <a href="#coach">Today</a>
-          <a href="#data-sources">Data sources</a>
+          <a href="#import">Import</a>
+          <a href="#integrations">Integrations</a>
+          <a className="nav-primary" href="#coach">Get Started</a>
         </nav>
       </header>
 
@@ -22,7 +23,7 @@ export default function Home() {
             the fuss.
           </p>
           <a className="primary-link" href="#coach">
-            See where to focus today <span aria-hidden="true">↓</span>
+            Get Started <span aria-hidden="true">↓</span>
           </a>
         </div>
         <aside className="promise" aria-label="What Unoforce helps with">
@@ -60,10 +61,10 @@ export default function Home() {
           </p>
         </div>
         <div className="source-menus">
-          <details>
+          <details id="import">
             <summary>
               <span>Import existing data</span>
-              <strong>File-based setup</strong>
+              <strong>Coming soon · file-based setup</strong>
             </summary>
             <ul>
               <li><span>WhatsApp</span><small>Exported chat file</small></li>
@@ -71,10 +72,10 @@ export default function Home() {
               <li><span>Spreadsheet</span><small>CSV from Google Sheets or Excel</small></li>
             </ul>
           </details>
-          <details>
+          <details id="integrations">
             <summary>
               <span>Connect an integration</span>
-              <strong>Ongoing sync</strong>
+              <strong>Coming soon · ongoing sync</strong>
             </summary>
             <ul>
               <li><span>Salesforce</span><small>Contacts, companies, and opportunities</small></li>
