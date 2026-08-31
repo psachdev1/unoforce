@@ -17,7 +17,8 @@ export default function Home() {
           <p className="dek">
             Plan your day, prepare for any customer conversation, and record what happened in
             plain English. Unoforce keeps the details organized so you can focus on sales—not CRM
-            hygiene across all your tools.
+            hygiene across all your tools. Spend more of your day on conversations that can move
+            revenue and commissions.
           </p>
           <a className="primary-link" href="#coach">
             Plan my sales day <span aria-hidden="true">↓</span>

@@ -76,6 +76,10 @@ The Unoforce chat has three jobs in v1:
 2. Explain what to do for a lead and help draft a message, call outline, or objection response.
 3. Accept natural notes and corrections about work done or what should happen next.
 
+The daily plan is not a three-card limit or a forced wizard. It shows all recommended unfinished activities, grouped into new outreach, warm nurture, active opportunities, and overdue work. The salesperson may choose any activity or ask Unoforce to reorder the plan.
+
+Selecting an activity focuses the conversation on that contact, company, or opportunity. Before leaving an activity that was started, the salesperson must record an outcome, skip it while leaving it unfinished, or reschedule it to a required date. Only completed outcomes disappear from the unfinished plan.
+
 The Vercel page is the working Build Week product. It is a conversation, not a pipeline, contact table, or CRM form.
 
 ### Landing Page Contract
@@ -126,7 +130,7 @@ Do not connect the live Close organization during the first build. Close API key
 ## The Smallest Complete Flow
 
 1. The agent opens the chat and asks, “What should I do today?”
-2. Unoforce returns a ranked brief with the lead name, reason, and suggested action.
+2. Unoforce returns the full ranked plan, grouped by work type, with the lead name, reason, channel, and suggested action.
 3. The agent asks why a lead is included or requests help with the next message or call.
 4. Unoforce answers from the stored customer context and clearly exposes missing context.
 5. The agent sends a natural update such as “For Priya, wait for the ABC Builders launch.”

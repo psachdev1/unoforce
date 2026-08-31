@@ -25,11 +25,21 @@ const prompts = [
   "Wait for the ABC Builders launch before contacting Priya",
 ];
 
+const activityPrompts = [
+  "Summarize this relationship",
+  "Which channel should I use and why?",
+  "Prepare me for likely objections",
+];
+
 export function SalesCoach() {
   const [leads, setLeads] = useState<Lead[]>(demoLeads);
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
   const [input, setInput] = useState("");
   const [ready, setReady] = useState(false);
+  const [activeLeadName, setActiveLeadName] = useState<string | null>(null);
+  const [showCheckout, setShowCheckout] = useState(false);
+  const [activityNote, setActivityNote] = useState("");
+  const [laterDate, setLaterDate] = useState("");
   const nextId = useRef(1);
   const endRef = useRef<HTMLDivElement>(null);
 
@@ -57,7 +67,10 @@ export function SalesCoach() {
     const clean = text.trim();
     if (!clean) return;
 
-    const result = applyLeadUpdate(clean, leads);
+    const scopedInput = activeLeadName && !clean.toLowerCase().includes(activeLeadName.split(" ")[0].toLowerCase())
+      ? `${clean} about ${activeLeadName}`
+      : clean;
+    const result = applyLeadUpdate(scopedInput, leads);
     const userMessage: Message = { id: nextId.current++, role: "agent", text: clean };
     const coachMessage: Message = {
       id: nextId.current++,
@@ -68,6 +81,76 @@ export function SalesCoach() {
     setLeads(result.leads);
     setMessages((current) => [...current, userMessage, coachMessage]);
     setInput("");
+  }
+
+  function startActivity(name: string) {
+    const lead = leads.find((item) => item.name === name);
+    if (!lead) return;
+    setActiveLeadName(name);
+    setShowCheckout(false);
+    const coachMessage: Message = {
+      id: nextId.current++,
+      role: "coach",
+      text: `Working on ${lead.name}. ${lead.context}\n\nRecommended channel: ${lead.channel}.\nNext move: ${lead.nextAction}\n\nAsk me anything about this relationship, or start the activity using whatever phone or tool you prefer.`,
+    };
+    setMessages((current) => [...current, coachMessage]);
+  }
+
+  function returnToToday() {
+    if (activeLeadName) {
+      setShowCheckout(true);
+      return;
+    }
+    send("Plan my sales day");
+  }
+
+  function finishActivity(outcome: string, note?: string) {
+    if (!activeLeadName) return;
+    const detail = note?.trim() || outcome;
+    setLeads((current) => current.map((lead) =>
+      lead.name === activeLeadName
+        ? { ...lead, taskStatus: "completed" as const, explicitInstruction: detail }
+        : lead,
+    ));
+    const coachMessage: Message = {
+      id: nextId.current++,
+      role: "coach",
+      text: `Recorded for ${activeLeadName}: ${detail}. This activity is complete and will not appear in the unfinished plan.`,
+    };
+    setMessages((current) => [...current, coachMessage]);
+    setActiveLeadName(null);
+    setShowCheckout(false);
+    setActivityNote("");
+  }
+
+  function skipActivity() {
+    if (!activeLeadName) return;
+    const name = activeLeadName;
+    setMessages((current) => [...current, {
+      id: nextId.current++,
+      role: "coach",
+      text: `${name} is still unfinished and remains on today’s plan.`,
+    }]);
+    setActiveLeadName(null);
+    setShowCheckout(false);
+  }
+
+  function rescheduleActivity() {
+    if (!activeLeadName || !laterDate) return;
+    const formatted = new Intl.DateTimeFormat("en", { month: "short", day: "numeric" }).format(new Date(`${laterDate}T12:00:00`));
+    setLeads((current) => current.map((lead) =>
+      lead.name === activeLeadName
+        ? { ...lead, taskStatus: "rescheduled" as const, due: formatted }
+        : lead,
+    ));
+    setMessages((current) => [...current, {
+      id: nextId.current++,
+      role: "coach",
+      text: `${activeLeadName} remains unfinished and is rescheduled for ${formatted}.`,
+    }]);
+    setActiveLeadName(null);
+    setShowCheckout(false);
+    setLaterDate("");
   }
 
   function submit(event: FormEvent) {
@@ -86,6 +169,8 @@ export function SalesCoach() {
     setLeads(demoLeads);
     setMessages([initialMessage]);
     window.localStorage.removeItem("unoforce-demo-leads-v1");
+    setActiveLeadName(null);
+    setShowCheckout(false);
   }
 
   return (
@@ -95,8 +180,20 @@ export function SalesCoach() {
           <span className="coach-mark" aria-hidden="true">U</span>
           <div><strong>Unoforce</strong><span>Your personal sales coach</span></div>
         </div>
-        <button className="reset-button" type="button" onClick={resetDemo}>Reset preview</button>
+        <div className="bar-actions">
+          <button className="today-button" type="button" onClick={returnToToday}>Today’s plan</button>
+          <button className="reset-button" type="button" onClick={resetDemo}>Reset preview</button>
+        </div>
       </div>
+
+      {activeLeadName ? (
+        <div className="active-context">
+          <span>Working on</span>
+          <strong>{activeLeadName}</strong>
+          <span>Chat is focused on this relationship</span>
+          <button type="button" onClick={returnToToday}>Back to today</button>
+        </div>
+      ) : null}
 
       <div className="conversation" aria-live="polite">
         {messages.map((message) => (
@@ -106,7 +203,7 @@ export function SalesCoach() {
               {message.reply?.kind === "brief" && message.reply.actions ? (
                 <>
                   <p>{message.text}</p>
-                  <DailyBrief actions={message.reply.actions} />
+                  <DailyBrief actions={message.reply.actions} onStart={startActivity} />
                 </>
               ) : (
                 <p>{message.text}</p>
@@ -117,8 +214,35 @@ export function SalesCoach() {
         <div ref={endRef} />
       </div>
 
+      {showCheckout && activeLeadName ? (
+        <section className="activity-checkout" aria-labelledby="checkout-title">
+          <div>
+            <span className="message-label">Before you go back</span>
+            <h3 id="checkout-title">What happened with {activeLeadName}?</h3>
+            <p>Record the outcome, leave it unfinished, or choose when to do it later.</p>
+          </div>
+          <div className="quick-outcomes">
+            <button type="button" onClick={() => finishActivity("No answer")}>No answer</button>
+            <button type="button" onClick={() => finishActivity("Message sent")}>Message sent</button>
+            <button type="button" onClick={() => finishActivity("Connected — follow-up details still needed")}>Connected</button>
+          </div>
+          <div className="outcome-note">
+            <input value={activityNote} onChange={(event) => setActivityNote(event.target.value)} placeholder="What changed, what was agreed, and what happens next?" />
+            <button type="button" disabled={!activityNote.trim()} onClick={() => finishActivity("Update recorded", activityNote)}>Save update</button>
+          </div>
+          <div className="checkout-secondary">
+            <button type="button" onClick={skipActivity}>Skip for now</button>
+            <label>
+              Do it later
+              <input type="date" value={laterDate} onChange={(event) => setLaterDate(event.target.value)} />
+            </label>
+            <button type="button" disabled={!laterDate} onClick={rescheduleActivity}>Reschedule</button>
+          </div>
+        </section>
+      ) : null}
+
       <div className="prompt-row" aria-label="Suggested questions">
-        {prompts.map((prompt) => (
+        {(activeLeadName ? activityPrompts : prompts).map((prompt) => (
           <button type="button" key={prompt} onClick={() => send(prompt)}>{prompt}</button>
         ))}
       </div>

@@ -1,4 +1,5 @@
 export type LeadStage = "hot" | "warm" | "nurture" | "waiting";
+export type Workstream = "new_outreach" | "warm_nurture" | "active_opportunity" | "overdue";
 
 export type Lead = {
   name: string;
@@ -8,10 +9,13 @@ export type Lead = {
   nextAction: string;
   due: string;
   daysQuiet: number;
+  workstream: Workstream;
+  channel: "Call" | "WhatsApp" | "Email" | "LinkedIn";
+  taskStatus?: "ready" | "completed" | "rescheduled";
   explicitInstruction?: string;
 };
 
-export type LeadAction = Pick<Lead, "name" | "stage" | "reason" | "nextAction" | "due">;
+export type LeadAction = Pick<Lead, "name" | "stage" | "reason" | "nextAction" | "due" | "workstream" | "channel" | "taskStatus">;
 
 export type CoachReply = {
   kind: "brief" | "answer" | "confirmation" | "help";
@@ -33,8 +37,8 @@ function ranked(leads: Lead[]) {
   const stageWeight: Record<LeadStage, number> = { hot: 4, warm: 3, nurture: 2, waiting: 1 };
   return [...leads]
     .sort((a, b) => stageWeight[b.stage] - stageWeight[a.stage] || b.daysQuiet - a.daysQuiet)
-    .slice(0, 3)
-    .map(({ name, stage, reason, nextAction, due }) => ({ name, stage, reason, nextAction, due }));
+    .filter((lead) => lead.taskStatus !== "completed")
+    .map(({ name, stage, reason, nextAction, due, workstream, channel, taskStatus }) => ({ name, stage, reason, nextAction, due, workstream, channel, taskStatus }));
 }
 
 export function replyToCoach(input: string, leads: Lead[]): CoachReply {
@@ -53,7 +57,7 @@ export function replyToCoach(input: string, leads: Lead[]): CoachReply {
     return {
       kind: "answer",
       leadName: lead.name,
-      text: `${lead.context} ${lead.reason} Recommended move: ${lead.nextAction}`,
+      text: `${lead.context} ${lead.reason} Recommended channel: ${lead.channel}. Recommended move: ${lead.nextAction}`,
     };
   }
 

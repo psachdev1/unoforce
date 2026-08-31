@@ -3,11 +3,12 @@ import { applyLeadUpdate, replyToCoach } from "./coach";
 import { demoLeads } from "./demo-data";
 
 describe("sales coach", () => {
-  it("returns three ranked actions for today's brief", () => {
+  it("returns the full unfinished plan for today's brief", () => {
     const reply = replyToCoach("Plan my sales day", demoLeads);
     expect(reply.kind).toBe("brief");
-    expect(reply.actions).toHaveLength(3);
-    expect(reply.actions?.[0].name).toBe("Arjun Rao");
+    expect(reply.actions).toHaveLength(8);
+    expect(reply.actions?.[0].name).toBe("Anita Desai");
+    expect(new Set(reply.actions?.map((action) => action.workstream)).size).toBe(4);
   });
 
   it("answers an open relationship summary question", () => {
@@ -62,8 +63,9 @@ describe("sales coach", () => {
     expect(result.reply.kind).toBe("confirmation");
 
     const changedBrief = replyToCoach("What should I do today?", result.leads);
-    expect(changedBrief.actions?.some((action) => action.name === "Priya Mehta")).toBe(false);
-    expect(result.leads.find((lead) => lead.name === "Priya Mehta")?.nextAction).toContain(
+    const changedPriya = changedBrief.actions?.find((action) => action.name === "Priya Mehta");
+    expect(changedPriya?.workstream).toBe("warm_nurture");
+    expect(changedPriya?.nextAction).toContain(
       "ABC Builders launch",
     );
   });
