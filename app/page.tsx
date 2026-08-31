@@ -40,11 +40,11 @@ export default function Home() {
       <section className="coach-section" id="coach" aria-labelledby="coach-title">
         <div className="section-heading">
           <div>
-            <p className="eyebrow">Live product preview</p>
+            <p className="eyebrow">Guided product preview</p>
             <h2 id="coach-title">Just tell it what you need.</h2>
           </div>
           <p>
-            Ask in plain English. This preview uses a fictional real-estate book of business,
+            Try the complete sales-activity loop with a fictional real-estate book of business,
             our first testing beachhead.
           </p>
         </div>
@@ -85,13 +85,13 @@ export default function Home() {
             </ul>
           </details>
         </div>
-        <p className="planned-note">Preview only. Imports and integrations are not connected yet.</p>
+        <p className="planned-note">Coming soon. Imports and integrations are not connected yet.</p>
       </section>
 
       <footer>
         <p>
-          This preview uses fictional customer context and browser-only memory. CRM, messaging,
-          dialer, and transcript connections are planned—not live.
+          Coming soon: open-ended AI, cloud memory, CRM and messaging sync, dialer context, and
+          transcript connections. This guided preview uses fictional data and browser-only memory.
         </p>
       </footer>
     </main>

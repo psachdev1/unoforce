@@ -1,13 +1,34 @@
-# Build Week Idea
+# Build Week — first working version
 
-## Idea
+I shipped the first working version of Unoforce today.
 
-Unoforce is a personal sales coach inside WhatsApp that tells a real-estate agent who needs attention today, why, and what to do next.
+**Idea**
 
-## Who is it for
+Unoforce is a personal sales assistant that helps you start every sales day with the right priorities, context, and next actions—then keeps the record as you work.
 
-Growing solo real-estate agents with a dedicated WhatsApp Business number who receive leads from property marketplaces, paid ads, and referrals, then manage those relationships in WhatsApp.
+**Who it is for**
 
-## Job to be done
+The product can eventually serve any individual salesperson. I am testing first with solo real-estate agents who manage long-running leads across calls, WhatsApp, email, property portals, and CRMs.
 
-Help the agent stay on top of every lead, prepare the next message or call, and follow up at the right time without searching through old systems.
+**Job to be done**
+
+Help a salesperson focus on selling while Unoforce organizes the daily plan, prepares each customer conversation, and captures what happened in plain English.
+
+**What works today**
+
+- Opens directly on a complete daily plan grouped into new outreach, warm nurture, active opportunities, and overdue work.
+- Lets the salesperson choose any activity and focuses the chat on that contact or opportunity.
+- Provides context, channel guidance, next-action suggestions, message preparation, and objection help from fictional sample data.
+- Records outcomes in the same chat box.
+- Returns automatically to the refreshed plan after a clear outcome.
+- Keeps unfinished, skipped, and rescheduled activities visible.
+
+**Coming soon**
+
+Open-ended AI, cloud memory, imports, CRM and messaging integrations, WhatsApp delivery, dialer context, and transcript connections are not live yet.
+
+Live preview: https://unoforce.vercel.app
+
+Public repo: https://github.com/psachdev1/unoforce
+
+I am looking for three individual salespeople—starting with real-estate agents—to use the daily activity loop while I watch. If your sales work lives across conversations and you dislike maintaining a CRM, I would value 15 minutes of direct feedback.

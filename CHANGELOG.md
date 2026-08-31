@@ -14,3 +14,4 @@
 - 2026-08-31: Clear outcomes now return directly to the refreshed sales plan; real conversations with no next step stay focused and ask one follow-up question before returning.
 - 2026-08-31: The header now links directly to Import and Integrations sections marked Coming soon, with Get Started as the primary header and hero action.
 - 2026-08-31: Active chat now distinguishes questions, future instructions, completed outcomes, and ordinary conversation before deciding whether to save, ask deeper, or return to the plan.
+- 2026-08-31: The header now stays visible while scrolling, all unfinished capabilities are labelled Coming soon, and the Build Week community post reflects the verified product honestly.
